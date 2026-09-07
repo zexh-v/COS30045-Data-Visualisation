@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Televisions | Appliance Energy Consumption</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo-link">
+      <img src="assets/PowerIcon.png" alt="Power logo - returns to Home page">
+      <span class="site-title">Appliance Energy</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="televisions.html" class="active">Televisions</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Television Energy Consumption</h1>
+  <p>Compare typical television wattages and estimate the running cost of your own TV with the calculator below.</p>
+</div>
+
+<main>
+
+  <section>
+    <h2>Typical Television Power Usage</h2>
+    <p>Placeholder content: the table below lists example television models with an assumed average wattage.
+    These values are illustrative and can be used as a starting point in the energy calculator further down
+    the page.</p>
+
+    <div class="tv-table-wrapper">
+      <table>
+        <caption>Example television models and average power draw</caption>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Screen Size</th>
+            <th>Type</th>
+            <th>Average Power (W)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>ValueVision 32"</td><td>32"</td><td>LED</td><td>40</td></tr>
+          <tr><td>ClearView 43"</td><td>43"</td><td>LED</td><td>65</td></tr>
+          <tr><td>CrystalPix 55"</td><td>55"</td><td>4K LED</td><td>100</td></tr>
+          <tr><td>UltraGlow 65"</td><td>65"</td><td>4K QLED</td><td>150</td></tr>
+          <tr><td>ObsidianView 65"</td><td>65"</td><td>OLED</td><td>165</td></tr>
+          <tr><td>GrandCinema 75"</td><td>75"</td><td>4K LED</td><td>200</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Appliance Energy Calculator</h2>
+    <p>Select a television model below (or enter a custom wattage), set your average daily viewing hours and
+    your electricity price, then calculate your estimated running costs.</p>
+
+    <div class="calculator">
+      <form class="calculator-form" id="calcForm" novalidate>
+
+        <label for="applianceSelect">Appliance / TV Model</label>
+        <select id="applianceSelect">
+          <option value="">-- Select a model or choose custom --</option>
+          <option value="40">ValueVision 32" (40 W)</option>
+          <option value="65">ClearView 43" (65 W)</option>
+          <option value="100">CrystalPix 55" (100 W)</option>
+          <option value="150">UltraGlow 65" (150 W)</option>
+          <option value="165">ObsidianView 65" OLED (165 W)</option>
+          <option value="200">GrandCinema 75" (200 W)</option>
+          <option value="custom">Custom wattage...</option>
+        </select>
+
+        <label for="wattInput">Appliance Power Usage (watts)</label>
+        <input type="number" id="wattInput" min="1" step="1" placeholder="e.g. 100">
+        <div class="field-error" id="wattError"></div>
+
+        <label for="hoursInput">Average Hours of Use per Day</label>
+        <input type="number" id="hoursInput" min="0" max="24" step="0.1" placeholder="e.g. 5">
+        <div class="field-error" id="hoursError"></div>
+
+        <label for="priceInput">Electricity Price (cents per kWh)</label>
+        <input type="number" id="priceInput" min="0" step="0.1" placeholder="e.g. 30">
+        <div class="field-error" id="priceError"></div>
+
+        <button type="submit" class="btn">Calculate</button>
+        <button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
+      </form>
+
+      <div class="results-panel" id="resultsPanel">
+        <h3>Estimated Results</h3>
+        <p class="results-placeholder" id="resultsPlaceholder">Enter your appliance details and press Calculate to see results here.</p>
+        <ul class="results-list" id="resultsList" hidden>
+          <li><span>Daily energy use</span><span class="value" id="resDaily">-</span></li>
+          <li><span>Monthly energy use</span><span class="value" id="resMonthly">-</span></li>
+          <li><span>Yearly energy use</span><span class="value" id="resYearly">-</span></li>
+          <li><span>Estimated monthly cost</span><span class="value" id="resCostMonthly">-</span></li>
+          <li><span>Estimated yearly cost</span><span class="value" id="resCostYearly">-</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; <span id="currentYear"></span> SUT Bachelor in Computer Science - Ken </p>
+  <p>This website was developed by the biggest night owl in the world.</p>
+</footer>
+
+<script src="assets/scripts.js"></script>
+</body>
+</html>

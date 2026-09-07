@@ -1,4 +1,4 @@
-# COS30045 – Data Visualisation
+# COS30045 - Data Visualisation
 
 ## Introduction
 
@@ -25,8 +25,8 @@ By successfully completing this unit, students will be able to:
 
 This unit contributes to the development of the following **Swinburne Graduate Attributes**:
 
-- **GA2 – Communication using different media**
-- **GA5 – Information literacy**
+- **GA2 - Communication using different media**
+- **GA5 - Information literacy**
 
 These attributes support students in developing the ability to communicate information effectively and work with data responsibly.
 
@@ -55,25 +55,6 @@ Key topics explored in this unit include:
 
 ## Repository Purpose
 
-This repository contains the **assignments and exercises for COS30045 – Data Visualisation**.
+This repository contains the **assignments and exercises for COS30045 - Data Visualisation**.
 
 Each assignment will be provided in a **separate folder within this repository**. Students are required to complete the tasks inside the corresponding assignment folder.
-
-### How to Work on the Assignments
-
-1. **Fork this repository** to your own GitHub account.
-2. **Clone your forked repository** to your local machine.
-3. Open the project in **Visual Studio Code** or your preferred development environment.
-4. Complete the required tasks inside the relevant **assignment folder**.
-5. Commit and push your work regularly to your forked repository.
-
-### Submission
-
-When submitting your assignment:
-
-1. Ensure all your work is pushed to your **forked repository**.
-2. Submit the **link to your forked repository** through the submission system (e.g., Canvas).
-
-Example submission link:
-
-https://github.com/yourusername/COS30045-data-visualisation

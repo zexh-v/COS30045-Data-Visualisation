@@ -1,12 +1,8 @@
-# Exercise 3 – Data Story: TV Energy Consumption
+# Exercise 3 - Data Story: TV Energy Consumption
 
 ## Overview
 
-In this exercise, you will develop a **data story** based on the **TV Energy Consumption dataset**. Using the website created in **Exercise 0.2**, you will extend your work to present a meaningful narrative supported by data visualisations.
-
-Your goal is to communicate insights from the dataset in a clear and engaging way through your **website and written explanation**.
-
-You must use the **Exercise 3 folder in your existing forked repository** and reuse the files created in **Exercise 0.2**.
+In this exercise, I have tried to develop a data story that focuses on how the selection of hardware for the television influences the use of energy in households. Visualizations will assist the consumers in analyzing data from the Australian TV Energy Rating data set.
 
 ---
 
@@ -14,26 +10,28 @@ You must use the **Exercise 3 folder in your existing forked repository** and re
 
 ### Audience
 
-The target audience for this visualisation includes:
+* **Primary Audience:**
+    - Everyday consumers, prospective TV buyers, and budget household bill-payers.
 
-- Consumers interested in **energy-efficient televisions**
-- Policy makers and regulators interested in **energy consumption trends**
-- Researchers studying **energy efficiency in consumer electronics**
+* **Audience Persona & Mindset:**
+    - Non-technical users unfamiliar with metrics like kilowatt-hours per year (kWh/year) or panel backlighting specs.
+    - Driven by real-world trade-offs: Screen Size vs. Sticker Price vs. Ongoing Power Costs.
 
-These audiences are interested in understanding how **television energy consumption varies across models, sizes, and technologies**, and how these factors influence overall energy usage.
+* **Story Guidelines for Audience:**
+    - Avoid raw electrical engineering jargon; frame figures around tangible running efficiency.
+    - Use intuitive visualisations (scatter plots with trends and comparison bar charts) rather than complex multi-dimensional plots.
+    - Provide concrete buying rules of thumb to help them make informed purchases in retail stores.
 
 ### Story Overview
 
-This visualisation explores patterns in **TV energy consumption** across different television models and specifications.
+Present retail fashions tend to force consumers into purchasing increasingly bigger screens (55", 65", and 75"+). Nonetheless, due to the fact that surface area is not directly proportional to size but rather increases quadratically, one might face a rapid increase in energy requirements. 
 
-The goal is to help viewers understand:
+This story attempts to answer the crucial question: **"Would the choice of a bigger television make your electricity bills grow exponentially, and what role does choosing the proper display technology play in mitigating the size impact?"**
 
-- How energy consumption varies between television models
-- The relationship between **screen size and power consumption**
-- How **energy efficiency ratings** impact energy usage
-- Trends that may help consumers choose more **energy-efficient televisions**
-
-The website presents these insights through visualisations and explanatory text that guide the viewer through the data.
+It is presented in three chapters:
+1. **The Market Overview:** Determining the most popular television screen sizes from the market (based on the Exercise 2 results on size distribution).
+2. **The Size Impact:** Exploring the correlation between the diagonal screen size and yearly electricity usage by the means of scatter plotting.
+3. **The Technology Impact:** Comparing different screen technologies (OLED vs. traditional LED-backlit LCD screens) efficiency at equal sizes.
 
 ---
 
@@ -47,25 +45,27 @@ The dataset was provided as part of the course materials.
 
 ### Data Processing
 
-Before creating visualisations, the dataset was processed to ensure it was suitable for analysis. This included:
-
-- Cleaning missing or inconsistent values
-- Selecting relevant attributes for visualisation
-- Organising the data into formats suitable for web visualisation
+The dataset was preprocessed, transformed and analyzed in KNIME Analytics Platform using structured analytical pipelines:
+* **Q1 Analysis of Brand and Market:** Loaded through ***CSV Reader***, filtered relevant columns through ***Column Filter***, standardized text fields through ***String Cleaner*** and ***String Replacer***, filtered out outlier/missing brands through ***Nominal Value Row Filter***, computed market shares via ***GroupBy*** and ***Sorter*** followed by visualization through ***Bar Chart*** and ***Pie Chart***.
+* **Q2 Analysis of Screen Dimension:** Reduced to features related to the screen dimensions through ***Column Filter*** and analyzed through the ***Histogram*** view to identify the hot-spots in the market.
+* **Q3 Energy Draw:** Preprocessed through ***Column Filter*** node, converted and computed the consumption ratios through ***Expression*** nodes, changed the structure of the data through ***Column Resorter***, rounded values to standard decimal points through ***Number Rounder*** and analyzed the variance through ***Scatter Plot***, ***GroupBy*** and ***Bar Chart*** views.
+* **Q4 Impact of Screen Technology:** Analyzed panel efficiency by using ***Column Filter***, ***Expression***, ***Column Resorter*** and ***Number Rounder*** nodes, transformed the data for various panels through ***Pivot*** node and finally visualized via ***Bar Chart***.
 
 ### Privacy
 
 The dataset does not contain any **personal or sensitive information**. It focuses solely on product specifications and energy consumption data related to television devices.
 
 ### Accuracy and Limitations
-
-While the dataset provides useful information about TV energy consumption, there are some limitations:
-
-- The dataset may not include **all available television models**
-- Some information may be **outdated or incomplete**
-- Energy consumption may vary depending on **real-world usage conditions**
-
 These factors should be considered when interpreting the visualisations.
+
+* **Test Setting vs. Real-World Use:**
+Annual energy figures assume standardized testing profiles (approx. 4.5 hours active viewing and 10 hours standby per day). 
+
+* **Dynamic Settings:**
+Real-world usage differs based on brightness settings, enabling HDR content, dynamic backlight manipulation, room ambient light sensors, and retail "Vivid" modes that draw higher peak power.
+
+* **Model Coverage:**
+The dataset reflects models registered under the regulatory scheme in Australia and may omit uncertified or gray-market imports.
 
 ### Ethics
 
@@ -81,11 +81,11 @@ This project follows ethical data visualisation practices by:
 
 ## AI Declaration
 
-Artificial Intelligence (AI) tools may have been used to assist with aspects of this assignment, such as:
+Artificial Intelligence (AI) tools have been used to assist with aspects of this assignment, such as:
 
-- Generating example code
-- Improving code structure
-- Assisting with documentation writing
+- Gave User Interface (UI) suggestions to improve the visual of the website
+- Assisting with KNIME Workflow
+- Assisting with basic spelling and grammar checking
 
 All AI-generated assistance was reviewed, modified where necessary, and integrated responsibly into the project.
 
