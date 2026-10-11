@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="COS30045 Data Visualisation - Exercise 4.1 Draw SVGs showing coordinate systems, shapes, and custom vector scene enhancements.">
+  <title>Exercise 4.1 - Draw SVGs | COS30045 Data Visualisation</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --primary-soft: #eff6ff;
+      --accent: #10b981;
+      --accent-soft: #ecfdf5;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 12px 32px -4px rgba(15, 23, 42, 0.12);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 20px 60px;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top right, #f1f5f9 0%, #f8fafc 100%);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Page Header */
+    .header-section {
+      text-align: center;
+      max-width: 820px;
+      margin-bottom: 35px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.025em;
+    }
+
+    .header-description {
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    /* Comparison Showcase Container */
+    .comparison-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: stretch;
+      gap: 28px;
+      width: 100%;
+      max-width: 1240px;
+    }
+
+    /* Individual Card */
+    .card {
+      flex: 1;
+      width: 100%;
+      max-width: 580px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-header h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.015em;
+    }
+
+    .status-tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-neutral {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+
+    .status-active {
+      background: var(--accent-soft);
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+
+    /* SVG Viewport Canvas Frame */
+    .svg-canvas-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+      background-color: #ffffff;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Highlights / Tags for Cards */
+    .card-features {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .feature-chip {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 4px 9px;
+      font-weight: 500;
+    }
+
+    .feature-chip.highlight {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      color: #166534;
+      font-weight: 600;
+    }
+
+    /* Divider */
+    .section-divider {
+      width: 100%;
+      max-width: 1240px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+      border: none;
+      margin: 50px 0 35px;
+    }
+
+    /* Step 2: Annotated Screenshots Section */
+    .screenshots-card {
+      width: 100%;
+      max-width: 900px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+
+    .screenshots-card h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.015em;
+    }
+
+    .screenshots-card p {
+      margin: 0 auto 24px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 650px;
+    }
+
+    .image-preview-wrapper {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+      background-color: #ffffff;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.25s ease;
+    }
+
+    .image-preview-wrapper:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .image-preview-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Step 3: Comparison Table Section */
+    .table-section-card {
+      width: 100%;
+      max-width: 900px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .table-section-card h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.015em;
+    }
+
+    .table-section-card p {
+      margin: 0 0 24px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .table-responsive-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+
+    .comparison-table th {
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+      font-size: 0.95rem;
+    }
+
+    .comparison-table td {
+      padding: 13px 18px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+      vertical-align: middle;
+      line-height: 1.5;
+    }
+
+    .comparison-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .comparison-table .element-name {
+      font-weight: 600;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      body {
+        padding: 24px 14px 40px;
+      }
+
+      h1 {
+        font-size: 1.85rem;
+      }
+
+      .comparison-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .card {
+        max-width: 100%;
+      }
+
+      .screenshots-card,
+      .table-section-card {
+        padding: 20px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Page Header -->
+  <header class="header-section">
+    <span class="badge-pill">COS30045 Data Visualisation • Exercise 4.1</span>
+    <h1>Exercise 4.1 - Draw SVGs</h1>
+    <p class="header-description">
+      Exploring SVG coordinate grids, primitive vector geometry, element grouping, and progressive customisations.
+    </p>
+  </header>
+
+  <!-- Before & After Comparison Showcase -->
+  <main class="comparison-container">
+
+    <!-- Card 1: Before (Left) -->
+    <section class="card container" aria-label="Before Customisation">
+      <div class="card-header">
+        <h2>Before</h2>
+        <span class="status-tag status-neutral">Baseline Template</span>
+      </div>
+
+      <div class="svg-canvas-wrapper">
+        <svg viewBox="0 0 600 600" role="img" aria-label="Base house and garden drawing">
+          <!-- 1. Background: Sky & Ground (Rectangles) -->
+          <rect x="0" y="0" width="600" height="365" fill="#88c5ec" />
+          <rect x="0" y="365" width="600" height="235" fill="#008000" />
+
+          <!-- 2. Sun (Circle) -->
+          <circle cx="485" cy="120" r="48" fill="#ffff00" />
+
+          <!-- 3. Tree: Trunk (Rect), Foliage (Circles) -->
+          <rect x="95" y="315" width="25" height="110" fill="#a0522d" />
+          <circle cx="85" cy="255" r="36" fill="#2e8b2e" />
+          <circle cx="130" cy="255" r="36" fill="#2e8b2e" />
+          <circle cx="108" cy="285" r="38" fill="#2e8b2e" />
+
+          <!-- 4. Roof (Polygon) -->
+          <polygon points="180,242 305,120 425,242" fill="#cb7735" />
+
+          <!-- 5. House Base (Rectangle) -->
+          <rect x="180" y="242" width="245" height="183" fill="#874314" />
+
+          <!-- 6. Door (Rect) & Doorknob (Circle) -->
+          <rect x="278" y="325" width="48" height="100" fill="#9d4c2b" />
+          <circle cx="313" cy="373" r="6" fill="#000000" />
+
+          <!-- 7. Windows: Grouped (<g>) with Shared Styling & Translate Transforms -->
+          <g fill="#a2d5ec">
+            <rect transform="translate(205, 268)" x="0" y="0" width="49" height="49" />
+            <rect transform="translate(351, 268)" x="0" y="0" width="49" height="49" />
+          </g>
+
+          <!-- 8. Winding Garden Path (Curved Paths) -->
+          <path d="M 270 425 C 235 440, 160 470, 175 515 C 190 560, 260 580, 278 600" fill="none" stroke="#ffa500"
+            stroke-width="8" />
+          <path d="M 320 425 C 285 440, 190 470, 205 515 C 220 560, 315 580, 335 600" fill="none" stroke="#ffa500"
+            stroke-width="8" />
+        </svg>
+      </div>
+
+      <div class="card-features">
+        <span class="feature-chip">📐 Coordinate-mapped Primitives</span>
+        <span class="feature-chip">🌲 Trefoil Circle Foliage</span>
+        <span class="feature-chip">🏠 Modular House Base</span>
+      </div>
+    </section>
+
+    <!-- Card 2: After (Right) -->
+    <section class="card container" aria-label="After Customisation">
+      <div class="card-header">
+        <h2>After</h2>
+        <span class="status-tag status-active">✨ Enhanced Scene</span>
+      </div>
+
+      <div class="svg-canvas-wrapper">
+        <svg viewBox="0 0 600 600" role="img" aria-label="Enhanced house and garden drawing">
+          <!-- 1. Background: Sky & Ground (Rectangles) -->
+          <rect x="0" y="0" width="600" height="365" fill="#88c5ec" />
+          <rect x="0" y="365" width="600" height="235" fill="#008000" />
+
+          <!-- 2. Clouds in the Sky -->
+          <g fill="#ffffff" fill-opacity="0.85">
+            <circle cx="120" cy="70" r="22" />
+            <circle cx="145" cy="55" r="28" />
+            <circle cx="175" cy="58" r="24" />
+            <circle cx="195" cy="70" r="20" />
+            <rect x="120" y="64" width="75" height="24" rx="12" />
+          </g>
+          <g fill="#ffffff" fill-opacity="0.8">
+            <circle cx="255" cy="92" r="16" />
+            <circle cx="275" cy="82" r="20" />
+            <circle cx="295" cy="90" r="16" />
+            <rect x="255" y="86" width="40" height="18" rx="9" />
+          </g>
+
+          <!-- 3. Enhanced Sun: Corona Glow, Sunbeams & Sun Body -->
+          <g id="enhanced-sun">
+            <!-- Corona Glow -->
+            <circle cx="485" cy="120" r="58" fill="#ffe066" fill-opacity="0.4" />
+
+            <!-- Sun Rays -->
+            <g stroke="#ffa500" stroke-width="4" stroke-linecap="round">
+              <line x1="485" y1="52" x2="485" y2="38" />
+              <line x1="485" y1="188" x2="485" y2="202" />
+              <line x1="417" y1="120" x2="403" y2="120" />
+              <line x1="553" y1="120" x2="567" y2="120" />
+              <line x1="437" y1="72" x2="427" y2="62" />
+              <line x1="533" y1="168" x2="543" y2="178" />
+              <line x1="437" y1="168" x2="427" y2="178" />
+              <line x1="533" y1="72" x2="543" y2="62" />
+            </g>
+
+            <!-- Sun Body -->
+            <circle cx="485" cy="120" r="48" fill="#ffff00" stroke="#f4b400" stroke-width="2" />
+          </g>
+
+          <!-- 4. Tree: Trunk (Rect), Foliage (Circles) & Apples -->
+          <rect x="95" y="315" width="25" height="110" fill="#a0522d" />
+          <circle cx="85" cy="255" r="36" fill="#2e8b2e" />
+          <circle cx="130" cy="255" r="36" fill="#2e8b2e" />
+          <circle cx="108" cy="285" r="38" fill="#2e8b2e" />
+
+          <!-- Apples on the Tree -->
+          <g fill="#d90429" stroke="#9b001a" stroke-width="1">
+            <circle cx="78" cy="250" r="6" />
+            <circle cx="98" cy="235" r="6" />
+            <circle cx="122" cy="242" r="6" />
+            <circle cx="140" cy="260" r="6" />
+            <circle cx="92" cy="280" r="6" />
+            <circle cx="118" cy="288" r="6" />
+          </g>
+
+          <!-- 5. Chimney & Smoke (Positioned behind roof) -->
+          <rect x="350" y="140" width="30" height="70" fill="#7a2e1d" stroke="#333333" stroke-width="2" />
+          <circle cx="365" cy="120" r="10" fill="#cccccc" fill-opacity="0.6" />
+          <circle cx="372" cy="95" r="14" fill="#dddddd" fill-opacity="0.5" />
+
+          <!-- 6. Roof (Polygon) -->
+          <polygon points="180,242 305,120 425,242" fill="#cb7735" />
+
+          <!-- 7. House Base (Rectangle) -->
+          <rect x="180" y="242" width="245" height="183" fill="#874314" />
+
+          <!-- 8. Door (Rect) & Doorknob (Circle) -->
+          <rect x="278" y="325" width="48" height="100" fill="#9d4c2b" />
+          <circle cx="313" cy="373" r="6" fill="#000000" />
+
+          <!-- 9. Windows: Grouped (<g>) with Shared Styling & Translate Transforms -->
+          <g fill="#a2d5ec">
+            <rect transform="translate(205, 268)" x="0" y="0" width="49" height="49" />
+            <rect transform="translate(351, 268)" x="0" y="0" width="49" height="49" />
+          </g>
+
+          <!-- 10. Winding Garden Path (Curved Paths) -->
+          <path d="M 270 425 C 235 440, 160 470, 175 515 C 190 560, 260 580, 278 600" fill="none" stroke="#ffa500"
+            stroke-width="8" />
+          <path d="M 320 425 C 285 440, 190 470, 205 515 C 220 560, 315 580, 335 600" fill="none" stroke="#ffa500"
+            stroke-width="8" />
+        </svg>
+      </div>
+
+      <div class="card-features">
+        <span class="feature-chip highlight">☁️ Sky Clouds</span>
+        <span class="feature-chip highlight">☀️ Sun</span>
+        <span class="feature-chip highlight">🍎 Apples</span>
+        <span class="feature-chip highlight">🏡 Chimney & Smoke</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Elegant Section Divider -->
+  <hr class="section-divider">
+
+  <!-- Step 2: Screenshots Presentation Card -->
+  <section class="screenshots-card screenshots" aria-label="Coordinate System Presentation">
+    <h2>Coordinate System & Customisation Annotations</h2>
+    <p>
+      The annotated illustration below demonstrates how coordinate offsets in SVG elements correlate directly to their
+      positions in the canvas viewport.
+    </p>
+
+    <div class="image-preview-wrapper">
+      <img src="svg coordinate system.png" alt="SVG with Coordinate System Annotations">
+    </div>
+  </section>
+
+  <!-- Elegant Section Divider -->
+  <hr class="section-divider">
+
+  <!-- Step 3: SVG Element & Coordinate Comparison Table -->
+  <section class="table-section-card" aria-label="SVG Element and Coordinate Comparison Table">
+    <h2>SVG Element & Coordinate Comparison</h2>
+    <p>
+      Summary of SVG geometry, positional coordinates, styling modifications, and vector primitives between the baseline template and custom scene.
+    </p>
+
+    <div class="table-responsive-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 22%;">Element</th>
+            <th scope="col" style="width: 39%;">Before</th>
+            <th scope="col" style="width: 39%;">After</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="element-name">Sun</td>
+            <td>cx="485", cy="120", r="48" fill="#FFFF00"</td>
+            <td>cx="485", cy="120", r="48" stroke="#F4B400" (Added corona r="58" &amp; 8 sun rays)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Clouds</td>
+            <td>N/A</td>
+            <td>Cluster 1: (120,64); Cluster 2: (255,86) fill="#FFFFFF" (Added 2 sky cloud groups)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Apples</td>
+            <td>N/A</td>
+            <td>cx="78" to "140", cy="235" to "288", r="6" fill="#D90429" (Added 6 apples on tree)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Chimney</td>
+            <td>N/A</td>
+            <td>x="350", y="140", width="30", height="70" fill="#7A2E1D" (Added behind roof)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Smoke</td>
+            <td>N/A</td>
+            <td>cx="365", cy="120", r="10" &amp; cx="372", cy="95", r="14" fill="#CCCCCC" (Added smoke puffs)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Roof</td>
+            <td>points="180,242 305,120 425,242" fill="#CB7735"</td>
+            <td>points="180,242 305,120 425,242" fill="#CB7735" (Unchanged)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Wall</td>
+            <td>x="180", y="242", width="245", height="183" fill="#874314"</td>
+            <td>x="180", y="242", width="245", height="183" fill="#874314" (Unchanged)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Door</td>
+            <td>x="278", y="325", width="48", height="100" fill="#9D4C2B"</td>
+            <td>x="278", y="325", width="48", height="100" fill="#9D4C2B" (Unchanged)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Doorknob</td>
+            <td>cx="313", cy="373", r="6" fill="#000000"</td>
+            <td>cx="313", cy="373", r="6" fill="#000000" (Unchanged)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Left window</td>
+            <td>x="205", y="268", width="49", height="49" fill="#A2D5EC"</td>
+            <td>x="205", y="268", width="49", height="49" fill="#A2D5EC" (Unchanged)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Right window</td>
+            <td>x="351", y="268", width="49", height="49" fill="#A2D5EC"</td>
+            <td>x="351", y="268", width="49", height="49" fill="#A2D5EC" (Unchanged)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Tree trunk</td>
+            <td>x="95", y="315", width="25", height="110" fill="#A0522D"</td>
+            <td>x="95", y="315", width="25", height="110" fill="#A0522D" (Unchanged)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Tree foliage</td>
+            <td>cx="85", cy="255", r="36"; cx="130", cy="255", r="36"; cx="108", cy="285", r="38"</td>
+            <td>cx="85", cy="255", r="36"; cx="130", cy="255", r="36"; cx="108", cy="285", r="38" (Unchanged)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Garden path</td>
+            <td>d="M 270 425 C 235 440...", d="M 320 425 C 285 440..."</td>
+            <td>d="M 270 425 C 235 440...", d="M 320 425 C 285 440..." (Unchanged)</td>
+          </tr>
+          <tr>
+            <td class="element-name">Sky &amp; Ground</td>
+            <td>Sky: w="600", h="365" fill="#88C5EC"; Ground: w="600", h="235" fill="#008000"</td>
+            <td>Sky: w="600", h="365" fill="#88C5EC"; Ground: w="600", h="235" fill="#008000" (Unchanged)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Page Footer -->
+  <footer>
+    <p>COS30045 Data Visualisation • Swinburne University of Technology</p>
+  </footer>
+
+</body>
+
+</html>

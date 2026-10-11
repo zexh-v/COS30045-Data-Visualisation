@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Explore household appliance electricity consumption and power costs in the Australian market with interactive energy insights.">
+  <title>Home | Appliance Energy Consumption</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function () {
+      var saved = localStorage.getItem("theme");
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = saved ? saved : (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="nav-logo-link" aria-label="Appliance Energy - Go to homepage">
+        <img src="images/PowerIcon.png" alt="Power logo - returns to Home page">
+        <span class="site-title">Appliance Energy</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="televisions.html">Televisions</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+      <div class="nav-controls">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch between light and dark theme"
+          title="Toggle theme">
+          <span class="theme-toggle-track">
+            <span class="theme-icon sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </span>
+            <span class="theme-icon moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </span>
+            <span class="theme-toggle-thumb"></span>
+          </span>
+          <span class="theme-toggle-text">Dark</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-pill-badge">⚡ Energy Insights &bull; Australia</div>
+    <h1>Understanding Appliance <span class="highlight-text">Energy Consumption</span></h1>
+    <p>A closer look at how everyday appliances contribute to household electricity use across the Australian market,
+      and what that means for your quarterly power bill.</p>
+
+    <div class="hero-highlights">
+      <div class="hero-chip">⚡ <strong>15–20 kWh</strong> Daily Household Avg</div>
+      <div class="hero-chip">⭐ <strong>1 to 10 Stars</strong> Efficiency Scale</div>
+      <div class="hero-chip">🔌 <strong>Up to 10%</strong> Standby Power Cost</div>
+    </div>
+  </div>
+
+  <main>
+
+    <section>
+      <h2>Energy Use in Australian Households</h2>
+      <p>
+        Australian households rely on a wide range of electrical appliances every day,
+        from refrigerators and washing machines to televisions and air conditioners. Understanding how much
+        energy these appliances consume can help households make informed decisions about usage habits and
+        potential upgrades to more efficient models.
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon-wrapper">📈</div>
+          <span class="badge">Market Trend</span>
+          <h3>Rising Running Costs</h3>
+          <p>Electricity tariffs in Australia have trended upward over recent years. Investing in energy-conscious
+            appliances and managing usage peaks directly lowers quarterly utility bills.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon-wrapper">⭐</div>
+          <span class="badge badge-green">Standards</span>
+          <h3>Energy Star Ratings</h3>
+          <p>The Australian Energy Rating Label allows consumers to compare the relative efficiency and estimated annual
+            kWh consumption across televisions, refrigerators, and washers.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon-wrapper">🔌</div>
+          <span class="badge">Vampire Power</span>
+          <h3>Standby Power Draw</h3>
+          <p>Appliances left continuously in passive standby mode can draw 5 to 20 watts uninterrupted, contributing up
+            to 10% of typical annual household power bills without delivering active use.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Frequently Asked Questions</h2>
+      <p>Click on any question below to explore answers about Australian household electricity usage.</p>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>What is a kilowatt-hour (kWh) and how is it measured?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>A kilowatt-hour (kWh) is a unit of energy representing the use of one kilowatt (1,000 watts) of continuous
+            electrical power for one hour. It is the standardized billing unit used by Australian energy retailers on
+            utility bills.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Which appliances use the most energy in Australian homes?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Space heating and cooling systems together account for approximately 40% of average domestic energy use,
+            followed by hot water heating (~25%), refrigeration (~8%), and consumer electronics like televisions and
+            computers.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How can I effectively reduce my appliance running costs?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Prioritise high star-rated models when purchasing, utilize smart power boards to eliminate standby power,
+            run dishwashers and washing machines during off-peak tariff periods, and moderate ambient temperature
+            settings.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Does television screen size and panel type affect power consumption?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. Larger display panels have a higher surface area requiring more backlight or self-emissive diodes.
+            Modern OLED and Mini-LED displays deliver exceptional picture quality, but high brightness and HDR content
+            can increase wattage compared to standard edge-lit LEDs.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="d3-exercise-section">
+      <h2>D3 Visualization Preview</h2>
+      <div class="card">
+        <svg id="chart-svg" width="400" height="150"
+          style="background: var(--color-bg-card-alt); border-radius: var(--radius-sm);"></svg>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="currentYear"></span> SUT Bachelor in Computer Science - Ken</p>
+    <p class="sub-note">⚡ Powered by sustainable energy awareness &bull; Developed by the biggest night owl in the world
+      🦉</p>
+  </footer>
+
+  <script src="js/scripts.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

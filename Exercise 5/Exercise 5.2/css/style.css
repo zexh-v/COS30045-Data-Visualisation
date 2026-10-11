@@ -1,0 +1,86 @@
+/* Page baseline styling */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 24px;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-size: 1.8rem;
+  color: #222;
+}
+
+/* Responsive SVG Container */
+.responsive-svg-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* SVG Chart Elements */
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-color: #ffffff;
+  border-radius: 6px;
+}
+
+/* Bar styling & hover effect */
+.bar {
+  fill: #3498db;
+  transition: fill 0.2s ease;
+}
+
+.bar:hover {
+  fill: #e67e22;
+}
+
+/* Axis typography */
+.axis text {
+  font-size: 13px;
+  fill: #444;
+}
+
+.axis-title {
+  font-size: 13px;
+  font-weight: 600;
+  fill: #222;
+}
+
+/* Bar numeric labels */
+.bar-label {
+  font-size: 12px;
+  font-weight: bold;
+  fill: #333;
+}
+
+/* Styling for Exercise 5.2 Line Chart */
+.line-chart-path {
+  fill: none;
+  stroke: #75485E; /* Aubergine tone matching Dufour & Meeks Ch 4 */
+  stroke-width: 2px;
+}
+
+.line-chart-circle {
+  fill: #75485E;
+  transition: r 0.2s ease;
+}
+
+.line-chart-circle:hover {
+  r: 6px;
+  fill: #e67e22;
+}
+
+.axis line,
+.axis path {
+  stroke: #333;
+}

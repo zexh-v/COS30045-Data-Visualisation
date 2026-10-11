@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Interactive D3 data visualisations exploring television energy consumption, Australian electricity spot prices (1998-2024), and display size market share.">
+  <title>Exercise 5 | Multi-Chart Visualisation Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function () {
+      var saved = localStorage.getItem("theme");
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = saved ? saved : (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- Glassmorphic Site Header -->
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="nav-logo-link" aria-label="Appliance Energy - Go to homepage">
+        <img src="images/PowerIcon.png" alt="Power logo - returns to Home page">
+        <span class="site-title">Appliance Energy</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#exercise-5-1">TV Energy (Bar)</a></li>
+        <li><a href="#exercise-5-2">Spot Prices (Scatter)</a></li>
+        <li><a href="#exercise-5-3">TV Sizes (Donut)</a></li>
+      </ul>
+      <div class="nav-controls">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch between light and dark theme"
+          title="Toggle theme">
+          <span class="theme-toggle-track">
+            <span class="theme-icon sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </span>
+            <span class="theme-icon moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </span>
+            <span class="theme-toggle-thumb"></span>
+          </span>
+          <span class="theme-toggle-text">Dark</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-pill-badge">⚡ Energy Insights &bull; Exercise 5 Dashboard</div>
+    <h1>Multi-Chart <span class="highlight-text">Visualisation Dashboard</span></h1>
+    <p>Explore television power consumption by display technology, historical wholesale spot electricity prices, and market proportion across screen size categories using interactive D3.js visualisations.</p>
+
+    <div class="hero-highlights">
+      <div class="hero-chip">📊 <strong>3 Charts</strong> Bar, Line &amp; Donut</div>
+      <div class="hero-chip">⚡ <strong>1998–2024</strong> Spot Price Analysis</div>
+      <div class="hero-chip">📺 <strong>4,500+ Models</strong> Australian Registry</div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Exercise 5.1: Bar Chart -->
+    <section id="exercise-5-1">
+      <span class="badge badge-blue">Exercise 5.1 &bull; Bar Chart</span>
+      <h2>55" TV Energy Consumption by Screen Technology</h2>
+      <p>Comparing average annual labelled energy consumption (kWh/year) across major display formats for 55-inch models in the Australian market.</p>
+
+      <div class="card chart-card">
+        <div class="chart-kpis">
+          <div class="kpi-card highlight">
+            <span class="kpi-label">Highest Average</span>
+            <span class="kpi-value">369.4 <small style="font-size: 0.9rem; font-weight: 600;">kWh</small></span>
+            <span class="kpi-sub">LED Screen Technology</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">OLED Consumption</span>
+            <span class="kpi-value">362.3 <small style="font-size: 0.9rem; font-weight: 600;">kWh</small></span>
+            <span class="kpi-sub">Self-emissive display panels</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Most Efficient</span>
+            <span class="kpi-value">335.3 <small style="font-size: 0.9rem; font-weight: 600;">kWh</small></span>
+            <span class="kpi-sub">LCD Screen Technology</span>
+          </div>
+        </div>
+
+        <div class="responsive-svg-container">
+          <div id="bar-chart"></div>
+        </div>
+
+        <div class="chart-footer">
+          <span class="chart-hint">💡 Hover over any bar to view exact mean kWh and technology comparison.</span>
+          <span class="chart-source">Data source: <code>data/Data_exercise 5.1-1.csv</code></span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Exercise 5.2: Scatter Plot -->
+    <section id="exercise-5-2">
+      <span class="badge badge-green">Exercise 5.2 &bull; Scatter Plot</span>
+      <h2>Australian Electricity Spot Prices (1998–2024)</h2>
+      <p>Tracking historical annual average wholesale electricity spot price trajectories ($/MWh) across the National Electricity Market (excluding Tasmania and Snowy regions).</p>
+
+      <div class="card chart-card">
+        <div class="chart-kpis">
+          <div class="kpi-card">
+            <span class="kpi-label">Historical Low</span>
+            <span class="kpi-value">$30.25</span>
+            <span class="kpi-sub">Recorded in 2011 ($/MWh)</span>
+          </div>
+          <div class="kpi-card highlight">
+            <span class="kpi-label">All-Time Peak</span>
+            <span class="kpi-value">$144.50</span>
+            <span class="kpi-sub">Energy crisis peak in 2022</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Latest Average (2024)</span>
+            <span class="kpi-value">$132.50</span>
+            <span class="kpi-sub">Current wholesale benchmark</span>
+          </div>
+        </div>
+
+        <div class="responsive-svg-container">
+          <div id="line-chart"></div>
+        </div>
+
+        <div class="chart-footer">
+          <span class="chart-hint">💡 Hover over individual data points along the timeline to inspect specific year prices.</span>
+          <span class="chart-source">Data source: <code>data/ARE_Spot_Prices.csv</code></span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Exercise 5.3: Donut Chart -->
+    <section id="exercise-5-3">
+      <span class="badge">Exercise 5.3 &bull; Donut Chart</span>
+      <h2>Proportion of TV Models by Screen Size Category</h2>
+      <p>Visualising television screen size category distribution across 4,508 registered models in the Australian appliance database.</p>
+
+      <div class="card chart-card">
+        <div class="chart-kpis">
+          <div class="kpi-card">
+            <span class="kpi-label">Total TV Models</span>
+            <span class="kpi-value">4,508</span>
+            <span class="kpi-sub">Across all size tiers</span>
+          </div>
+          <div class="kpi-card highlight">
+            <span class="kpi-label">Dominant Segment</span>
+            <span class="kpi-value">Medium (53%)</span>
+            <span class="kpi-sub">2,386 registered models</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Large Format</span>
+            <span class="kpi-value">Large (30%)</span>
+            <span class="kpi-sub">1,352 registered models</span>
+          </div>
+        </div>
+
+        <div class="responsive-svg-container">
+          <div id="donut-chart"></div>
+        </div>
+
+        <div class="chart-footer">
+          <span class="chart-hint">💡 Hover over any segment of the donut to inspect exact model counts and percentages.</span>
+          <span class="chart-source">Data source: <code>data/Data_exercise 5.3.csv</code></span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Shared Rich Tooltip -->
+  <div class="chart-tooltip-panel" id="sharedTooltip" role="tooltip" aria-hidden="true"></div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <p>&copy; <span id="currentYear"></span> SUT Bachelor in Computer Science - Ken</p>
+    <p class="sub-note">⚡ Powered by sustainable energy awareness &bull; Developed by the biggest night owl in the world 🦉</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/scripts.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="js/bar-chart.js"></script>
+  <script src="js/line-chart.js"></script>
+  <script src="js/donut-chart.js"></script>
+</body>
+
+</html>

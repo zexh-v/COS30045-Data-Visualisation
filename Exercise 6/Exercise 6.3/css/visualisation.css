@@ -1,0 +1,25 @@
+#histogram svg {
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.axis text {
+  font-size: 11px;
+  fill: #495057;
+}
+
+.axis path,
+.axis line {
+  stroke: #ced4da;
+}
+
+#scatterplot {
+  margin-top: 40px;
+}
+
+#scatterplot svg {
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Interactive D3 data visualisations exploring television energy consumption distribution with dynamic filtering, and multi-variable scatterplot analysis with tooltips.">
+  <title>Exercise 6 | Interactive Visualisation Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function () {
+      var saved = localStorage.getItem("theme");
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = saved ? saved : (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- Glassmorphic Site Header -->
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="nav-logo-link" aria-label="Appliance Energy - Go to homepage">
+        <img src="images/PowerIcon.png" alt="Power logo - returns to Home page">
+        <span class="site-title">Appliance Energy</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#histogram-section" class="active">Energy Distribution (Histogram)</a></li>
+        <li><a href="#scatterplot-section">Star Rating vs Energy (Scatter)</a></li>
+      </ul>
+      <div class="nav-controls">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch between light and dark theme"
+          title="Toggle theme">
+          <span class="theme-toggle-track">
+            <span class="theme-icon sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </span>
+            <span class="theme-icon moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </span>
+            <span class="theme-toggle-thumb"></span>
+          </span>
+          <span class="theme-toggle-text">Dark</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-pill-badge">⚡ Interactive Analytics &bull; Exercise 6 Suite</div>
+    <h1>Interactive TV Energy <span class="highlight-text">Analytics Dashboard</span></h1>
+    <p>Explore television energy efficiency, consumption frequency distributions, and multi-variable correlations using real-time dynamic filtering and interactive D3.js visualisations.</p>
+
+    <div class="hero-highlights">
+      <div class="hero-chip">📊 <strong>4,233 Models</strong> Australian Registry</div>
+      <div class="hero-chip">🎛️ <strong>Dynamic Filtering</strong> Real-Time Binning</div>
+      <div class="hero-chip">⭐ <strong>Star Rating vs kWh</strong> Rich Tooltips</div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Exercise 6.1 & 6.2: Interactive Histogram with Filter -->
+    <section id="histogram-section">
+      <span class="badge badge-blue">Exercise 6.1 &amp; 6.2 &bull; Interactive Histogram</span>
+      <h2>TV Energy Consumption Distribution</h2>
+      <p>Distribution of labelled annual electricity consumption (kWh/year) across television models, featuring animated real-time filtering by screen technology.</p>
+
+      <div class="card chart-card">
+        <div class="chart-kpis">
+          <div class="kpi-card">
+            <span class="kpi-label">Total Television Models</span>
+            <span class="kpi-value">4,233</span>
+            <span class="kpi-sub">Across Australian registry</span>
+          </div>
+          <div class="kpi-card highlight">
+            <span class="kpi-label">Modal Consumption Range</span>
+            <span class="kpi-value">200–400 <small style="font-size: 0.9rem; font-weight: 600;">kWh</small></span>
+            <span class="kpi-sub">Highest frequency bin</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Interactive Technologies</span>
+            <span class="kpi-value">3 Types</span>
+            <span class="kpi-sub">LCD, LED &amp; OLED</span>
+          </div>
+        </div>
+
+        <!-- Filter Buttons Container -->
+        <div id="filters_screen"></div>
+
+        <div class="responsive-svg-container">
+          <div id="histogram"></div>
+        </div>
+
+        <div class="chart-footer">
+          <span class="chart-hint">💡 Click any technology button above to trigger smooth animated histogram bin recalculation.</span>
+          <span class="chart-source">Data source: <code>data/Ex6_TVdata_withStar.csv</code></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter Buttons Container -->
+        <div id="filters_screen"></div>
+
+        <div class="responsive-svg-container" style="position: relative;">
+          <!-- Histogram Floating Tooltip Box -->
+          <div id="hist-tooltip" class="chart-tooltip"></div>
+          <div id="histogram"></div>
+        </div>
+
+    <hr class="section-divider">
+
+    <!-- Exercise 6.3 & 6.4: Interactive Scatterplot with Tooltips -->
+    <section id="scatterplot-section">
+      <span class="badge badge-green">Exercise 6.3 &amp; 6.4 &bull; Interactive Scatterplot</span>
+      <h2>Star Rating vs Energy Consumption Correlation</h2>
+      <p>Investigating the correlation between energy star ratings (1 to 10 stars) and annual kWh consumption across display formats and screen sizes.</p>
+
+      <div class="card chart-card">
+        <div class="chart-kpis">
+          <div class="kpi-card">
+            <span class="kpi-label">Star Rating Scale</span>
+            <span class="kpi-value">1.0 to 9.0 ⭐</span>
+            <span class="kpi-sub">Energy efficiency rating</span>
+          </div>
+          <div class="kpi-card highlight">
+            <span class="kpi-label">Color Categorisation</span>
+            <span class="kpi-value">By Tech</span>
+            <span class="kpi-sub">Blue: LED &bull; Green: LCD &bull; Amber: OLED</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Hover Interaction</span>
+            <span class="kpi-value">Screen Size</span>
+            <span class="kpi-sub">Displays diagonal inches tooltip</span>
+          </div>
+        </div>
+
+        <div class="responsive-svg-container">
+          <div id="scatterplot"></div>
+        </div>
+
+        <div class="chart-footer">
+          <span class="chart-hint">💡 Hover over individual data points to inspect the specific television screen size (inches).</span>
+          <span class="chart-source">Data source: <code>data/Ex6_TVdata_withStar.csv</code></span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Shared Rich Floating Tooltip Panel -->
+  <div class="chart-tooltip-panel" id="sharedTooltip" role="tooltip" aria-hidden="true"></div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <p>&copy; <span id="currentYear"></span> SUT Bachelor in Computer Science - Ken</p>
+    <p class="sub-note">⚡ Powered by sustainable energy awareness &bull; Developed by the biggest night owl in the world 🦉</p>
+  </footer>
+
+  <!-- Scripts in strict dependency order -->
+  <script src="js/scripts.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="js/shared-constants.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/histogram.js"></script>
+  <script src="js/scatterplot.js"></script>
+  <script src="js/load-data.js"></script>
+</body>
+
+</html>

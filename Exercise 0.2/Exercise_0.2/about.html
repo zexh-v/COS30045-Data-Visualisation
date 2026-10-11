@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Learn about the Appliance Energy Consumption project, technology stack, and educational objectives.">
+  <title>About Us | Appliance Energy Consumption</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function () {
+      var saved = localStorage.getItem("theme");
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = saved ? saved : (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="nav-logo-link" aria-label="Appliance Energy - Go to homepage">
+        <img src="images/PowerIcon.png" alt="Power logo - returns to Home page">
+        <span class="site-title">Appliance Energy</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="televisions.html">Televisions</a></li>
+        <li><a href="about.html" class="active">About Us</a></li>
+      </ul>
+      <div class="nav-controls">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch between light and dark theme" title="Toggle theme">
+          <span class="theme-toggle-track">
+            <span class="theme-icon sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </span>
+            <span class="theme-icon moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </span>
+            <span class="theme-toggle-thumb"></span>
+          </span>
+          <span class="theme-toggle-text">Dark</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-pill-badge">💡 Unit Project &bull; Exercise 0.2</div>
+    <h1>About <span class="highlight-text">This Project</span></h1>
+    <p>Background on the engineering motivation, curriculum goals, and technology stack behind this interactive web
+      application.</p>
+  </div>
+
+  <main>
+
+    <section>
+      <h2>Project Purpose</h2>
+      <div class="card">
+        <p>
+          This web application was engineered to demonstrate core modern frontend development fundamentals: semantic
+          HTML5 architecture, responsive external CSS design systems, dynamic DOM manipulation, and robust client-side
+          validation using vanilla JavaScript.
+        </p>
+        <p>
+          The context of domestic appliance energy consumption in the Australian market was selected to demonstrate data
+          presentation, interactive calculations, and accessible user experiences for real-world environmental and
+          consumer utility challenges.
+        </p>
+      </div>
+    </section>
+
+    <div class="about-grid">
+      <section>
+        <h2>About the Author</h2>
+        <div class="card">
+          <div class="author-badge-card">
+            <div class="author-avatar">K</div>
+            <div>
+              <h3 style="margin-bottom: 0.2rem;">Ken</h3>
+              <p style="margin: 0; font-size: 0.9rem; color: var(--color-brand-blue); font-weight: 600;">SUT Bachelor in
+                Computer Science</p>
+            </div>
+          </div>
+          <p>Passionate computer science student exploring modern human-computer interaction, data visualization, and
+            performant web technologies. Notorious for late-night problem solving and code crafting.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Tools &amp; Acknowledgements</h2>
+        <div class="card">
+          <p>Developed with modern web standards and focused on zero-dependency lightweight delivery:</p>
+          <div class="tech-tags">
+            <span class="tech-tag">⚡ Semantic HTML5</span>
+            <span class="tech-tag">🎨 Modern CSS3 &amp; Variables</span>
+            <span class="tech-tag">💻 Vanilla ES6+ JavaScript</span>
+            <span class="tech-tag">🤖 Google Gemini AI</span>
+          </div>
+          <p style="margin-top: 1rem; font-size: 0.88rem; color: var(--color-text-muted);">
+            Generative AI (Google Gemini) was used to assist in structuring the Appliance Energy Calculator logic and
+            calculation routines, enhanced the visual design for this project.
+          </p>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="currentYear"></span> SUT Bachelor in Computer Science - Ken</p>
+    <p class="sub-note">⚡ Powered by sustainable energy awareness &bull; Developed by the biggest night owl in the world
+      🦉</p>
+  </footer>
+
+  <script src="js/scripts.js"></script>
+</body>
+
+</html>

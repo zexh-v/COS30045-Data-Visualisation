@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Compare television power consumption by screen size and display technology, and calculate running costs with our interactive appliance energy calculator.">
+  <title>Televisions | Appliance Energy Consumption</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function () {
+      var saved = localStorage.getItem("theme");
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = saved ? saved : (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo-link" aria-label="Appliance Energy - Go to homepage">
+      <img src="images/PowerIcon.png" alt="Power logo - returns to Home page">
+      <span class="site-title">Appliance Energy</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="televisions.html" class="active">Televisions</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+    <div class="nav-controls">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch between light and dark theme" title="Toggle theme">
+        <span class="theme-toggle-track">
+          <span class="theme-icon sun" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <span class="theme-icon moon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+          <span class="theme-toggle-thumb"></span>
+        </span>
+        <span class="theme-toggle-text">Dark</span>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="hero-pill-badge">📺 Consumer Guide &bull; Interactive Tool</div>
+  <h1>Television <span class="highlight-text">Energy Consumption</span></h1>
+  <p>Compare typical television wattages across popular panel formats and estimate the exact running cost of your setup with the calculator below.</p>
+</div>
+
+<main>
+
+  <section>
+    <h2>Typical Television Power Usage</h2>
+    <p>The table below lists representative television models and screen sizes alongside their estimated average continuous power draw in active viewing mode. Use these benchmarks as quick reference inputs in the calculator below.</p>
+
+    <div class="tv-table-wrapper">
+      <table>
+        <caption>Representative television specifications and average power draw</caption>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Screen Size</th>
+            <th>Display Technology</th>
+            <th>Average Power (W)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ValueVision 32"</strong></td>
+            <td>32"</td>
+            <td><span class="tech-pill led">LED</span></td>
+            <td><span class="power-val">40 W</span></td>
+          </tr>
+          <tr>
+            <td><strong>ClearView 43"</strong></td>
+            <td>43"</td>
+            <td><span class="tech-pill led">LED</span></td>
+            <td><span class="power-val">65 W</span></td>
+          </tr>
+          <tr>
+            <td><strong>CrystalPix 55"</strong></td>
+            <td>55"</td>
+            <td><span class="tech-pill led">4K LED</span></td>
+            <td><span class="power-val">100 W</span></td>
+          </tr>
+          <tr>
+            <td><strong>UltraGlow 65"</strong></td>
+            <td>65"</td>
+            <td><span class="tech-pill qled">4K QLED</span></td>
+            <td><span class="power-val">150 W</span></td>
+          </tr>
+          <tr>
+            <td><strong>ObsidianView 65"</strong></td>
+            <td>65"</td>
+            <td><span class="tech-pill oled">OLED</span></td>
+            <td><span class="power-val">165 W</span></td>
+          </tr>
+          <tr>
+            <td><strong>GrandCinema 75"</strong></td>
+            <td>75"</td>
+            <td><span class="tech-pill led">4K LED</span></td>
+            <td><span class="power-val">200 W</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Appliance Energy Calculator</h2>
+    <p>Select a television model preset below (or specify your own custom wattage), define your daily usage hours and regional electricity tariff, then calculate your running costs.</p>
+
+    <div class="calculator">
+      <form class="calculator-form" id="calcForm" novalidate>
+
+        <label for="applianceSelect">Appliance / TV Model Preset</label>
+        <select id="applianceSelect">
+          <option value="">-- Select a model or choose custom --</option>
+          <option value="40">ValueVision 32" (40 W)</option>
+          <option value="65">ClearView 43" (65 W)</option>
+          <option value="100">CrystalPix 55" (100 W)</option>
+          <option value="150">UltraGlow 65" (150 W)</option>
+          <option value="165">ObsidianView 65" OLED (165 W)</option>
+          <option value="200">GrandCinema 75" (200 W)</option>
+          <option value="custom">Custom wattage...</option>
+        </select>
+
+        <label for="wattInput">Appliance Power Usage (Watts)</label>
+        <input type="number" id="wattInput" min="1" step="1" placeholder="e.g. 100">
+        <div class="field-error" id="wattError"></div>
+
+        <label for="hoursInput">Average Hours of Use per Day (0 &ndash; 24)</label>
+        <input type="number" id="hoursInput" min="0" max="24" step="0.1" placeholder="e.g. 5">
+        <div class="field-error" id="hoursError"></div>
+
+        <label for="priceInput">Electricity Price (cents per kWh)</label>
+        <input type="number" id="priceInput" min="0" step="0.1" placeholder="e.g. 30">
+        <div class="field-error" id="priceError"></div>
+
+        <div class="calc-buttons">
+          <button type="submit" class="btn" id="calcBtn">
+            <span>⚡ Calculate Cost</span>
+          </button>
+          <button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
+        </div>
+      </form>
+
+      <div class="results-panel" id="resultsPanel">
+        <h3>Estimated Results</h3>
+        <p class="results-placeholder" id="resultsPlaceholder">
+          Enter your appliance details and press <strong>Calculate Cost</strong> to reveal estimated consumption and cost metrics.
+        </p>
+        <ul class="results-list" id="resultsList" hidden>
+          <li><span>Daily energy use</span><span class="value" id="resDaily">-</span></li>
+          <li><span>Monthly energy use (30 days)</span><span class="value" id="resMonthly">-</span></li>
+          <li><span>Yearly energy use (365 days)</span><span class="value" id="resYearly">-</span></li>
+          <li><span>Estimated monthly cost</span><span class="value" id="resCostMonthly">-</span></li>
+          <li><span>Estimated yearly cost</span><span class="value" id="resCostYearly">-</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; <span id="currentYear"></span> SUT Bachelor in Computer Science - Ken</p>
+  <p class="sub-note">⚡ Powered by sustainable energy awareness &bull; Developed by the biggest night owl in the world 🦉</p>
+</footer>
+
+<script src="js/scripts.js"></script>
+</body>
+</html>

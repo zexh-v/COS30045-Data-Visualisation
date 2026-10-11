@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercise 6.2: TV Energy Consumption Histogram</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/visualisation.css">
+</head>
+<body>
+  <header>
+    <h1>TV Energy Consumption Distribution</h1>
+  </header>
+
+  <main>
+    <div id="filters_screen"></div>
+    <div id="histogram"></div>
+  </main>
+
+  <!-- Load D3 v7 -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  
+  <!-- Modular Scripts in strict dependency order -->
+  <script src="js/shared-constants.js"></script>
+  <script src="js/histogram.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/load-data.js"></script>
+</body>
+</html>
